@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
   CANSparkMax left_back = new CANSparkMax(1, MotorType.kBrushless);
   CANSparkMax right_back = new CANSparkMax(3, MotorType.kBrushless);
 
-  CANSparkMax testcan = new CANSparkMax(5, MotorType.kBrushless);
+  CANSparkMax testcan = new CANSparkMax(3, MotorType.kBrushless);
 
   //Drive Train
   MecanumDrive drivetrain = new MecanumDrive(right_front, right_back, left_front, left_back);
