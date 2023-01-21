@@ -6,7 +6,6 @@ package frc.robot;
 
 import org.photonvision.PhotonCamera;
 // please bring me some pizza
-//ZYXWVUTSRQPONMLKJIHGFEDCBA em htiw gnis uoy t'now emit txen sCBA ym wonk I woN
 //import com.revrobotics.AnalogInput;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -18,6 +17,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -57,17 +57,19 @@ public class Robot extends TimedRobot {
 
   //Motors
   CANSparkMax left_front = new CANSparkMax(2, MotorType.kBrushless);
-  CANSparkMax right_front = new CANSparkMax(4, MotorType.kBrushless);
+  CANSparkMax right_front = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax left_back = new CANSparkMax(1, MotorType.kBrushless);
-  CANSparkMax right_back = new CANSparkMax(3, MotorType.kBrushless);
+   CANSparkMax right_back = new CANSparkMax(4, MotorType.kBrushless);
 
-  CANSparkMax testcan = new CANSparkMax(3, MotorType.kBrushless);
+ // CANSparkMax testcan = new CANSparkMax(1, MotorType.kBrushless);
+
 
   //Drive Train
-  MecanumDrive drivetrain = new MecanumDrive(right_front, right_back, left_front, left_back);
+   MecanumDrive drivetrain = new MecanumDrive(left_front, left_back, right_front, right_back);
 
   //Joysticks
   Joystick notjoystick = new Joystick(0);
+  Joystick yesjoystick = new Joystick(1);
 
   //Photon vision camera 
   PhotonCamera camera = new PhotonCamera("photonvision"); 
@@ -92,8 +94,11 @@ public class Robot extends TimedRobot {
   Servo thegrab = new Servo(1);
 
   //Encoder 
-  RelativeEncoder testmotor;
+  RelativeEncoder testenc;
   double testsp; 
+
+  //Drive speed
+  double driveSpeedMax = 0.7;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -105,11 +110,11 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    right_back.setInverted(false);
+    // right_back.setInverted(false);
     right_front.setInverted(false);
 
-    pnematic.enableDigital();
-    // pnematic.disable(); 
+    ///pnematic.enableDigital();
+    pnematic.disable(); 
 
     boolean enabled = pnematic.isEnabled();
     boolean pressureSwitch = pnematic.getPressureSwitchValue();
@@ -119,9 +124,16 @@ public class Robot extends TimedRobot {
     pcmright.set(Value.kForward); 
     pcmleft.set(Value.kForward);
     //pcmsol.set(Value.kReverse); 
-
     //Encodertest 
-    testmotor = testcan.getEncoder();
+    //testenc = testcan.getEncoder();
+
+    //motor ramp rate
+    double ramp_rate = 0.5;
+
+    left_front.setOpenLoopRampRate(ramp_rate);
+    right_front.setOpenLoopRampRate(ramp_rate);
+    left_back.setOpenLoopRampRate(ramp_rate);
+    right_back.setOpenLoopRampRate(ramp_rate);
   }
 
   /**
@@ -147,7 +159,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("SetPoint", testsp);
 
-    testsp = testmotor.getPosition();
+    //testsp = testenc.getPosition();
 
     if (notjoystick.getRawButtonPressed(4)) {
       pcmright.toggle();
@@ -170,13 +182,18 @@ public class Robot extends TimedRobot {
     }
 
     //Enable/disable pneumatic
-    if (notjoystick.getRawButton(1)){
-      if(pump=false){
+    if (notjoystick.getRawButtonPressed(1)){
+      // if pump is false, then do stuff
+      if( pump == false ){
+        
+        // set the value of 'pump' to true
         pump=true;
+        System.out.println("turning pump on");
         pnematic.enableDigital();
       }
-      if(pump=true){
+      else if(pump == true){
         pump=false;
+        System.out.println("turning pump off");
         pnematic.disable();
       }
     }
@@ -224,7 +241,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
   //Drive Train
-  drivetrain.driveCartesian(notjoystick.getRawAxis(1), notjoystick.getRawAxis(0), notjoystick.getRawAxis(4));
+  drivetrain.driveCartesian(notjoystick.getRawAxis(1)*driveSpeedMax,
+             -notjoystick.getRawAxis(0)*driveSpeedMax, -notjoystick.getRawAxis(4)*driveSpeedMax);
 
   if(notjoystick.getRawButton(5)){
   var aprilres = camera.getLatestResult();
@@ -244,6 +262,13 @@ public class Robot extends TimedRobot {
     var pitchxaxis = bestarget.getYaw();
     SmartDashboard.putNumber("Yaw", pitchxaxis);
   }
+  }
+
+  if(yesjoystick.getRawButton(1)){
+    //testcan.set(0.1);
+  }
+  else{
+   // testcan.set(0);
   }
   }
 
