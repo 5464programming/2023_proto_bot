@@ -100,6 +100,13 @@ public class Robot extends TimedRobot {
   //Drive speed
   double driveSpeedMax = 0.7;
 
+  // 5464 custom-defined subsystem classes
+  // classes created with a leading lowercase m are our subsystems
+  Drivetrain mDrivetrain = new Drivetrain();
+  Elevator mElevator = new Elevator();
+  // Eva and Gabe will fill in the rest here!
+
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -110,12 +117,21 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
+
+    // 5464 custom classes initial setup functions
+    mDrivetrain.Init();
+    // Eva and Gabe will fill in the rest of subsystem inits here!
+
+
+
+
+
+
     // right_back.setInverted(false);
     right_front.setInverted(false);
 
     ///pnematic.enableDigital();
     pnematic.disable(); 
-
     boolean enabled = pnematic.isEnabled();
     boolean pressureSwitch = pnematic.getPressureSwitchValue();
     double current = pnematic.getCurrent(); 
