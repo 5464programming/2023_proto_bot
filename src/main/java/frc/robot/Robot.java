@@ -52,6 +52,8 @@ public class Robot extends TimedRobot {
 
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
+  // put any more autonomous choices here
+
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -102,8 +104,8 @@ public class Robot extends TimedRobot {
 
   // 5464 custom-defined subsystem classes
   // classes created with a leading lowercase m are our subsystems
-  Drivetrain mDrivetrain = new Drivetrain();
-  Elevator mElevator = new Elevator();
+  //Drivetrain mDrivetrain = new Drivetrain();
+  //Elevator mElevator = new Elevator();
   // Eva and Gabe will fill in the rest here!
 
 
@@ -119,7 +121,7 @@ public class Robot extends TimedRobot {
 
 
     // 5464 custom classes initial setup functions
-    mDrivetrain.Init();
+    //mDrivetrain.Init();
     // Eva and Gabe will fill in the rest of subsystem inits here!
 
 
@@ -217,6 +219,45 @@ public class Robot extends TimedRobot {
     ultracm=(sensordistant.getAverageVoltage())*(1024);
   }
 
+
+  // Drives forward with Limelight, so we can be at the correct distance to score
+  public boolean scorePrep(){
+    // flag indicating we are lined up
+    boolean ready = false;
+
+    // do all the stuff we want during this step
+    // at some point, once we satisfy conditions, we will set ready = true
+
+    // tell the parent routine if we are ready to move on
+    return ready;
+  }
+  
+
+
+
+  // This autonomous routine is for a start in front of a cone-scoring post
+  // It scores a cone, then zooms around the charging station
+  // It then drives us onto the charging station, keeping us there with a gyro/brake
+  public void AutoTokyoDrift(){
+    boolean ready = false;
+    switch(autoStep){
+      case 0:
+        // this will check the return value of scorePrep() continuously until it says it's ready
+        ready = scorePrep();
+      case 1:
+        // ready = sConeEl()?
+      case 2:
+        // ready = ?
+
+    }
+    // if an autonomous step is complete, move on to the next one!
+    if(ready){
+      autoStep++;
+    }
+  }
+
+
+
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
    * autonomous modes using the dashboard. The sendable chooser code works with the Java
@@ -227,24 +268,35 @@ public class Robot extends TimedRobot {
    * below with additional strings. If using the SendableChooser make sure to add them to the
    * chooser code above as well.
    */
-  @Override
+  public int autoStep=0;
+  
+   @Override
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+    
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
+      
       case kCustomAuto:
         // Put custom auto code here
+        // we could make more 'cases' for more auto routines
+        AutoTokyoDrift();
+        
         break;
+
       case kDefaultAuto:
       default:
         // Put default auto code here
         break;
+      
+      
+
     }
   }
 
