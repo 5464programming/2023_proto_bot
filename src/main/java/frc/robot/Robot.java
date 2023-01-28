@@ -338,6 +338,12 @@ public class Robot extends TimedRobot {
     return ready;
   }
 
+  public boolean Spin(){
+    //Gyro will preform a 180
+    boolean ready = false;
+    return ready;
+  }
+
   public boolean TokyoDrift(){
     boolean ready = false;
     return ready;
@@ -417,7 +423,10 @@ if(navx.getPitch() < 5){
       case 3:
         ready = FirstEscape();
 
-      case 4:
+      case 4: 
+        ready = Spin();
+
+      case 5:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
@@ -444,7 +453,10 @@ if(navx.getPitch() < 5){
       case 3:
         ready = SecondEscape();
 
-      case 4:
+      case 4: 
+        ready = Spin();
+
+      case 5:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
@@ -470,7 +482,10 @@ if(navx.getPitch() < 5){
       case 3:
         ready = ThirdEscape();
 
-      case 4:
+      case 4: 
+        ready = Spin();
+
+      case 5:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
