@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -334,7 +335,35 @@ public class Robot extends TimedRobot {
 
   public boolean Balance(){
     boolean ready = false;
+
+ //IMPORTANT: WANTED TO ADD ALL CANSPARKS TOGETHER IN ONE VARIBLE BUT IT DID NOT WORK 
+
+    //When pitch ~ 5 then stop
+if(navx.getPitch() == 5){
+  left_front.set(0);
+  left_back.set(0); 
+  right_front.set(0);
+  right_back.set(0);
+}
+   
+  //When pitch > 5 then move forward
+if(navx.getPitch() > 5){
+  left_front.set(1);
+  left_back.set(1);
+  right_front.set(1);
+  right_back.set(1);
+}
+    
+  //When pitch < 5 then move backward
+if(navx.getPitch() < 5){
+  left_front.set(-1);
+  left_back.set(-1);
+  right_front.set(-1);
+  right_back.set(-1);
+}
+
     return ready;
+    //Focus on pitch when level value reads around 5
   }
 
   public boolean Generic_Backup(){
