@@ -11,10 +11,11 @@ public class Intake {
 
     // ============================================== Private Variables
     // What the rest of the robot does not care about
-
+    // TODO: put Intake motor definitions here!
     
     public void Init(){
         // put one-time setup steps here
+        // TODO: put SparkMax setup here!
 
     }
 

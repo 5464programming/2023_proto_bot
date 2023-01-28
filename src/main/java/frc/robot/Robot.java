@@ -5,34 +5,23 @@
 package frc.robot;
 
 import org.photonvision.PhotonCamera;
-// please bring me some pizza
-//import com.revrobotics.AnalogInput;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import pabeles.concurrency.ConcurrencyOps.Reset;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
-
-import com.fasterxml.jackson.databind.util.RawValue;
 import com.kauailabs.navx.frc.AHRS;
 
 /**
@@ -52,7 +41,7 @@ public class Robot extends TimedRobot {
 
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
-  // put any more autonomous choices here
+  // TODO: make a 'Tokyo Drift' option here!
 
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -61,13 +50,13 @@ public class Robot extends TimedRobot {
   CANSparkMax left_front = new CANSparkMax(2, MotorType.kBrushless);
   CANSparkMax right_front = new CANSparkMax(3, MotorType.kBrushless);
   CANSparkMax left_back = new CANSparkMax(1, MotorType.kBrushless);
-   CANSparkMax right_back = new CANSparkMax(4, MotorType.kBrushless);
+  CANSparkMax right_back = new CANSparkMax(4, MotorType.kBrushless);
 
  // CANSparkMax testcan = new CANSparkMax(1, MotorType.kBrushless);
 
 
   //Drive Train
-   MecanumDrive drivetrain = new MecanumDrive(left_front, left_back, right_front, right_back);
+  MecanumDrive drivetrain = new MecanumDrive(left_front, left_back, right_front, right_back);
 
   //Joysticks
   Joystick notjoystick = new Joystick(0);
@@ -134,9 +123,9 @@ public class Robot extends TimedRobot {
 
     ///pnematic.enableDigital();
     pnematic.disable(); 
-    boolean enabled = pnematic.isEnabled();
-    boolean pressureSwitch = pnematic.getPressureSwitchValue();
-    double current = pnematic.getCurrent(); 
+    //boolean enabled = pnematic.isEnabled();
+    //boolean pressureSwitch = pnematic.getPressureSwitchValue();
+    //double current = pnematic.getCurrent(); 
 
     //pcmsol.set(Value.kOff); 
     pcmright.set(Value.kForward); 
@@ -219,19 +208,26 @@ public class Robot extends TimedRobot {
     ultracm=(sensordistant.getAverageVoltage())*(1024);
   }
 
-
+  // This is step 0 in 'Tokyo Drift' subroutine!
   // Drives forward with Limelight, so we can be at the correct distance to score
   public boolean scorePrep(){
     // flag indicating we are lined up
     boolean ready = false;
 
     // do all the stuff we want during this step
-    // at some point, once we satisfy conditions, we will set ready = true
+    // at some point, once we satisfy conditions, we will do the following:
+    // TODO: drive forward and check distance with Vision.
+    
+    if(  /* check some limelight variable here */    ){
+      ready = true;
+    }
 
     // tell the parent routine if we are ready to move on
     return ready;
   }
   
+
+
 
 
 
@@ -245,13 +241,15 @@ public class Robot extends TimedRobot {
         // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
       case 1:
-        // ready = sConeEl()?
+        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
+        ready = sConeEl();
       case 2:
         // ready = ?
 
     }
     // if an autonomous step is complete, move on to the next one!
     if(ready){
+      ready = false;
       autoStep++;
     }
   }
@@ -285,18 +283,26 @@ public class Robot extends TimedRobot {
       
       case kCustomAuto:
         // Put custom auto code here
-        // we could make more 'cases' for more auto routines
-        AutoTokyoDrift();
         
         break;
 
       case kDefaultAuto:
+        // What is our default auto, if we don't pick one? Put it here!
+
+        break;
+        
+      case kTokyoDriftAuto:
+        // This is currently an error! kTokyoDriftAuto has to be declared before this!
+
+        // If we select 'Tokyo Drift' on Drivers' station, it will run this function!
+
+        AutoTokyoDrift();
+        break;
+
       default:
         // Put default auto code here
         break;
-      
-      
-
+    
     }
   }
 
