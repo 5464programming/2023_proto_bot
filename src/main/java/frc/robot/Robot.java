@@ -71,7 +71,6 @@ public class Robot extends TimedRobot {
 
  // CANSparkMax testcan = new CANSparkMax(1, MotorType.kBrushless);
 
-
   //Drive Train
   MecanumDrive drivetrain = new MecanumDrive(left_front, left_back, right_front, right_back);
 
@@ -619,7 +618,6 @@ if(navx.getPitch() < 5){
     }
   }
 
-
   // This autonomous routine starts anywhere in front of a cone scoring location
   // It drives forward, scores, backs out of community
   public void AutoDefault(){
@@ -647,8 +645,6 @@ if(navx.getPitch() < 5){
       autoStep++;
     }
   }
-
-
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
