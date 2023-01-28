@@ -40,9 +40,17 @@ public class Robot extends TimedRobot {
   double[] xAverage = {0,0,0,0,0};
   double[] yAverage = {0,0,0,0,0};
 
+  //Charge station autonomous
   private static final String kDefaultAuto = "Default";
   private static final String kTokyoDrift = "Tokyo Drift";
   private static final String kHitchRoute = "Hitch Route";
+
+  //Scoring autonomous
+  private static final String kFirstScore = "First Score";
+  private static final String kSecondScore = "Second Score";
+  private static final String kThirdScore = "Third Score";
+
+
   private static final String kFadeAway = "Fade Away";
 
   private static final String kHigh = "High";
@@ -114,9 +122,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+
     m_chooser.addOption("Tokyo Drift", kTokyoDrift);
     m_chooser.addOption("Hitch Route", kHitchRoute);
     m_chooser.addOption("Fade Away", kFadeAway);
+
+    m_chooser.addOption("First Score", kFirstScore);
+    m_chooser.addOption("Second Score", kSecondScore);
+    m_chooser.addOption("Third Score", kThirdScore);
 
     SmartDashboard.putData("Auto choices", m_chooser);
 
@@ -307,6 +320,24 @@ public class Robot extends TimedRobot {
     return ready;
   }
 
+  public boolean FirstEscape(){
+    // flag indicating 
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean SecondEscape(){
+    // flag indicating 
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean ThirdEscape(){
+    // flag indicating 
+    boolean ready = false;
+    return ready;
+  }
+
   public boolean TokyoDrift(){
     boolean ready = false;
     return ready;
@@ -316,7 +347,6 @@ public class Robot extends TimedRobot {
     boolean ready = false;
     return ready;
   }
-
   
   public boolean FadeDrift(){
     boolean ready = false;
@@ -369,6 +399,76 @@ if(navx.getPitch() < 5){
   public boolean Generic_Backup(){
     boolean ready = false;
     return ready;
+  }
+
+  public void AutoFirstScore(){
+    boolean ready = false;
+    switch(autoStep){
+      case 0:
+        // this will check the return value of scorePrep() continuously until it says it's ready
+        ready = scorePrep();
+      case 1:
+        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
+        ready = sConeEl();
+      case 2:
+        // ready = ?
+        ready = Score();
+
+      case 3:
+        break;
+    }
+    // if an autonomous step is complete, move on to the next one!
+    if(ready){
+      ready = false;
+      autoStep++;
+    }
+
+  }
+
+  public void AutoSecondScore(){
+    boolean ready = false;
+    switch(autoStep){
+      case 0:
+        // this will check the return value of scorePrep() continuously until it says it's ready
+        ready = scorePrep();
+      case 1:
+        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
+        ready = sConeEl();
+      case 2:
+        // ready = ?
+        ready = Score();
+
+      case 3:
+        break;
+    }
+    // if an autonomous step is complete, move on to the next one!
+    if(ready){
+      ready = false;
+      autoStep++;
+    }
+  }
+
+  public void AutoThirdScore(){
+    boolean ready = false;
+    switch(autoStep){
+      case 0:
+        // this will check the return value of scorePrep() continuously until it says it's ready
+        ready = scorePrep();
+      case 1:
+        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
+        ready = sConeEl();
+      case 2:
+        // ready = ?
+        ready = Score();
+
+      case 3:
+        break;
+    }
+    // if an autonomous step is complete, move on to the next one!
+    if(ready){
+      ready = false;
+      autoStep++;
+    }
   }
 
   // This autonomous routine is for a start in front of a cone-scoring post
@@ -567,6 +667,19 @@ if(navx.getPitch() < 5){
         AutoFadeAway();
         break;
 
+      case kFirstScore:
+        AutoFirstScore();
+      break;
+
+      case kSecondScore:
+        AutoSecondScore();
+      break;
+
+      case kThirdScore:
+        AutoThirdScore();
+      break;
+      
+
       case kDefaultAuto:
         AutoDefault();
         break;
@@ -575,7 +688,6 @@ if(navx.getPitch() < 5){
       default:
         AutoDefault();
         break;
-    
     }
   }
 
