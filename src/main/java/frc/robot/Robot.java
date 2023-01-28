@@ -415,6 +415,9 @@ if(navx.getPitch() < 5){
         ready = Score();
 
       case 3:
+        ready = FirstEscape();
+
+      case 4:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
@@ -439,6 +442,9 @@ if(navx.getPitch() < 5){
         ready = Score();
 
       case 3:
+        ready = SecondEscape();
+
+      case 4:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
@@ -462,6 +468,9 @@ if(navx.getPitch() < 5){
         ready = Score();
 
       case 3:
+        ready = ThirdEscape();
+
+      case 4:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
