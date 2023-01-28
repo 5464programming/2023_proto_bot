@@ -40,11 +40,19 @@ public class Robot extends TimedRobot {
   double[] yAverage = {0,0,0,0,0};
 
   private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
+  private static final String kTokyoDrift = "Tokyo Drift";
+  private static final String kHitchRoute = "Hitch Route";
+  private static final String kFadeAway = "Fade Away";
+
+  private static final String kHigh = "High";
+  private static final String kMid = "Mid";
+  private static final String kLow = "Low";
   // TODO: make a 'Tokyo Drift' option here!
 
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private String score_preset_selected;
+  private final SendableChooser<String> score_preset_chooser = new SendableChooser<>();
 
   //Motors
   CANSparkMax left_front = new CANSparkMax(2, MotorType.kBrushless);
@@ -105,15 +113,20 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
+    m_chooser.addOption("Tokyo Drift", kTokyoDrift);
+    m_chooser.addOption("Hitch Route", kHitchRoute);
+    m_chooser.addOption("Fade Away", kFadeAway);
+
     SmartDashboard.putData("Auto choices", m_chooser);
 
+    score_preset_chooser.setDefaultOption("High", kHigh);
+    score_preset_chooser.addOption("Mid", kMid);
+    score_preset_chooser.addOption("Low", kLow);
+    SmartDashboard.putData("Score Preset Choices", score_preset_chooser);
 
     // 5464 custom classes initial setup functions
     //mDrivetrain.Init();
     // Eva and Gabe will fill in the rest of subsystem inits here!
-
-
 
 
 
@@ -204,7 +217,7 @@ public class Robot extends TimedRobot {
         pnematic.disable();
       }
     }
-
+  
     ultracm=(sensordistant.getAverageVoltage())*(1024);
   }
 
@@ -214,26 +227,127 @@ public class Robot extends TimedRobot {
     // flag indicating we are lined up
     boolean ready = false;
 
+
     // do all the stuff we want during this step
     // at some point, once we satisfy conditions, we will do the following:
     // TODO: drive forward and check distance with Vision.
     
-    if(  /* check some limelight variable here */    ){
-      ready = true;
-    }
+    // if(  /* check some limelight variable here */    ){
+    //   ready = true;
+    // }
 
     // tell the parent routine if we are ready to move on
     return ready;
   }
   
+  public boolean sConeEl(){
+    // flag indicating elevator height and extension are lined up
+    boolean ready = false;
 
+    // checking elevator encoder
+    // checking extension encoder
 
+    switch (score_preset_selected) {
+      
+      case kHigh:
+        //reach elevator and extension for high cone
+        //set ready to true once conditions are met
 
+        break;
 
+      case kMid:
+        //reach elevator and extension for mid cone
+        //set ready to true once conditions are met
+
+        break;
+
+      case kLow:
+        //reach elevator and extension for low cone
+        //set ready to true once conditions are met
+
+        break;
+
+      default:
+        //high preset code, in case selector BREAKS!
+        //set ready to true once conditions are met
+
+        break;
+    
+    }
+
+    return ready;
+  }
+
+  public boolean Score(){
+    // flag indicating cone has been dropped
+    boolean ready = false;
+
+    // release cone motors until encoders read a certain value = cone is dropped
+    // set ready to true once conditions are met
+
+    return ready;
+  }
+  
+  public boolean TokyoEscape(){
+    // flag indicating 
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean HitchEscape(){
+    // flag indicating 
+    boolean ready = false;
+    return ready;
+ }
+
+  public boolean FadeEscape(){
+    // flag indicating 
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean TokyoDrift(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean HitchDrift(){
+    boolean ready = false;
+    return ready;
+  }
+
+  
+  public boolean FadeDrift(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean Arrival(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean Gunit(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean Balance(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean Generic_Backup(){
+    boolean ready = false;
+    return ready;
+  }
 
   // This autonomous routine is for a start in front of a cone-scoring post
   // It scores a cone, then zooms around the charging station
   // It then drives us onto the charging station, keeping us there with a gyro/brake
+
+  // This autonomous routine starts in the right position, scores a cone,
+  // backs up past the charge station, strafes right, and drives back on it
   public void AutoTokyoDrift(){
     boolean ready = false;
     switch(autoStep){
@@ -245,7 +359,134 @@ public class Robot extends TimedRobot {
         ready = sConeEl();
       case 2:
         // ready = ?
+        ready = Score();
 
+      case 3:
+        ready = TokyoEscape();
+
+      case 4:
+        ready = TokyoDrift();
+
+      case 5: 
+        ready = Arrival();
+
+      case 6:
+        ready = Gunit();
+
+      case 7:
+        ready = Balance();
+
+      case 8:
+        break;
+    }
+    // if an autonomous step is complete, move on to the next one!
+    if(ready){
+      ready = false;
+      autoStep++;
+    }
+  }
+
+  // This autonomous routine starts in the middle position, scores a cone,
+  // backs up past the charge station, and drives back on it
+  public void AutoHitchRoute(){
+    boolean ready = false;
+    switch(autoStep){
+      case 0:
+        // this will check the return value of scorePrep() continuously until it says it's ready
+        ready = scorePrep();
+      case 1:
+        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
+        ready = sConeEl();
+      case 2:
+        // ready = ?
+        ready = Score();
+
+      case 3:
+        ready = HitchEscape();
+
+      case 4:
+        ready = HitchDrift();
+
+      case 5: 
+        ready = Arrival();
+
+      case 6:
+        ready = Gunit();
+
+      case 7:
+        ready = Balance();
+
+      case 8:
+        break;
+    }
+    // if an autonomous step is complete, move on to the next one!
+    if(ready){
+      ready = false;
+      autoStep++;
+    }
+  }
+
+  // This autonomous routine starts in the left position, scores a cone,
+  // backs up past the charge station, strafes to the left, and drives back on it
+  public void AutoFadeAway(){
+    boolean ready = false;
+    switch(autoStep){
+      case 0:
+        // this will check the return value of scorePrep() continuously until it says it's ready
+        ready = scorePrep();
+      case 1:
+        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
+        ready = sConeEl();
+      case 2:
+        // ready = ?
+        ready = Score();
+
+      case 3:
+        ready = FadeEscape();
+
+      case 4:
+        ready = FadeDrift();
+
+      case 5: 
+        ready = Arrival();
+
+      case 6:
+        ready = Gunit();
+
+      case 7:
+        ready = Balance();
+
+      case 8:
+        break;
+    }
+    // if an autonomous step is complete, move on to the next one!
+    if(ready){
+      ready = false;
+      autoStep++;
+    }
+  }
+
+
+  // This autonomous routine starts anywhere in front of a cone scoring location
+  // It drives forward, scores, backs out of community
+  public void AutoDefault(){
+    boolean ready = false;
+    switch(autoStep){
+      case 0:
+        // this will check the return value of scorePrep() continuously until it says it's ready
+        ready = scorePrep();
+      case 1:
+        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
+        ready = sConeEl();
+      case 2:
+        // ready = ?
+        ready = Score();
+
+      case 3:
+        ready = Generic_Backup();
+
+      case 8:
+        break;
     }
     // if an autonomous step is complete, move on to the next one!
     if(ready){
@@ -271,8 +512,11 @@ public class Robot extends TimedRobot {
    @Override
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
+    score_preset_selected = score_preset_chooser.getSelected(); 
+
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+    System.out.println("Preset selected: " + score_preset_selected);
     
   }
 
@@ -281,26 +525,26 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     switch (m_autoSelected) {
       
-      case kCustomAuto:
-        // Put custom auto code here
-        
+      case kTokyoDrift:
+        // If we select 'Tokyo Drift' on Drivers' station, it will run this function!
+        AutoTokyoDrift();        
+      break;
+
+      case kHitchRoute:
+        AutoHitchRoute();
+        break;
+
+      case kFadeAway:
+        AutoFadeAway();
         break;
 
       case kDefaultAuto:
-        // What is our default auto, if we don't pick one? Put it here!
-
+        AutoDefault();
         break;
         
-      case kTokyoDriftAuto:
-        // This is currently an error! kTokyoDriftAuto has to be declared before this!
-
-        // If we select 'Tokyo Drift' on Drivers' station, it will run this function!
-
-        AutoTokyoDrift();
-        break;
 
       default:
-        // Put default auto code here
+        AutoDefault();
         break;
     
     }
