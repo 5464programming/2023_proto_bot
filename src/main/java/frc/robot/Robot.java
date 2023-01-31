@@ -328,7 +328,7 @@ public class Robot extends TimedRobot {
     return ready;
   }
 
-  public boolean Spin(){
+  public boolean Spin180Gyro(){
     //Gyro will preform a 180
     boolean ready = false;
     return ready;
@@ -395,28 +395,28 @@ public class Robot extends TimedRobot {
  //IMPORTANT: WANTED TO ADD ALL CANSPARKS TOGETHER IN ONE VARIBLE BUT IT DID NOT WORK 
 
     //When pitch ~ 5 then stop
-if(navx.getPitch() == 5){
-  left_front.set(0);
-  left_back.set(0); 
-  right_front.set(0);
-  right_back.set(0);
-}
+  if(navx.getPitch() == 5){
+    left_front.set(0);
+    left_back.set(0); 
+    right_front.set(0);
+    right_back.set(0);
+  }
    
   //When pitch > 5 then move forward
-if(navx.getPitch() > 5){
-  left_front.set(1);
-  left_back.set(1);
-  right_front.set(1);
-  right_back.set(1);
-}
+  if(navx.getPitch() > 5){
+    left_front.set(1);
+    left_back.set(1);
+    right_front.set(1);
+    right_back.set(1);
+  }
     
   //When pitch < 5 then move backward
-if(navx.getPitch() < 5){
-  left_front.set(-1);
-  left_back.set(-1);
-  right_front.set(-1);
-  right_back.set(-1);
-}
+  if(navx.getPitch() < 5){
+    left_front.set(-1);
+    left_back.set(-1);
+    right_front.set(-1);
+    right_back.set(-1);
+  }
     return ready;
     //Focus on pitch when level value reads around 5
   }
@@ -442,7 +442,7 @@ if(navx.getPitch() < 5){
         ready = FirstEscape();
 
       case 4: 
-        ready = Spin();
+        ready = Spin180Gyro();
 
       case 5: 
         ready = ConeDetect();
@@ -454,7 +454,7 @@ if(navx.getPitch() < 5){
         ready = IntakeDead();
 
       case 8:
-        ready = Spin();
+        ready = Spin180Gyro();
 
       case 9: 
         ready = FirstFormation();
@@ -493,7 +493,7 @@ if(navx.getPitch() < 5){
         ready = SecondEscape();
 
       case 4: 
-        ready = Spin();
+        ready = Spin180Gyro();
 
       case 5: 
         ready = ConeDetect();
@@ -505,7 +505,7 @@ if(navx.getPitch() < 5){
         ready = IntakeDead();
 
       case 8:
-        ready = Spin();
+        ready = Spin180Gyro();
 
       case 9: 
         ready = SecondFormation();
@@ -545,7 +545,7 @@ if(navx.getPitch() < 5){
         ready = ThirdEscape();
 
       case 4: 
-        ready = Spin();
+        ready = Spin180Gyro();
 
       case 5: 
         ready = ConeDetect();
@@ -557,7 +557,7 @@ if(navx.getPitch() < 5){
         ready = IntakeDead();
 
       case 8:
-        ready = Spin();
+        ready = Spin180Gyro();
 
       case 9: 
         ready = ThirdEscape();
@@ -777,13 +777,11 @@ if(navx.getPitch() < 5){
       case kThirdScore:
         AutoThirdScore();
       break;
-      
 
       case kDefaultAuto:
         AutoDefault();
         break;
         
-
       default:
         AutoDefault();
         break;
