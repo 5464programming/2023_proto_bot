@@ -343,6 +343,36 @@ public class Robot extends TimedRobot {
     return ready;
   }
 
+  public boolean ConeDetect(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean IntakeRun(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean IntakeDead(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean FirstFormation(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean SecondFormation(){
+    boolean ready = false;
+    return ready;
+  }
+
+  public boolean ThirdFormation(){
+    boolean ready = false;
+    return ready;
+  }
+
   public boolean TokyoDrift(){
     boolean ready = false;
     return ready;
@@ -410,13 +440,12 @@ if(navx.getPitch() < 5){
     boolean ready = false;
     switch(autoStep){
       case 0:
-        // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
+
       case 1:
-        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
         ready = sConeEl();
+
       case 2:
-        // ready = ?
         ready = Score();
 
       case 3:
@@ -425,7 +454,31 @@ if(navx.getPitch() < 5){
       case 4: 
         ready = Spin();
 
-      case 5:
+      case 5: 
+        ready = ConeDetect();
+
+      case 6:
+        ready = IntakeRun();
+
+      case 7: 
+        ready = IntakeDead();
+
+      case 8:
+        ready = Spin();
+
+      case 9: 
+        ready = FirstFormation();
+
+      case 10:
+        ready = scorePrep();
+
+      case 11:
+        ready = sConeEl();
+
+      case 12:
+        ready = Score();
+
+      case 13:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
@@ -455,7 +508,31 @@ if(navx.getPitch() < 5){
       case 4: 
         ready = Spin();
 
-      case 5:
+      case 5: 
+        ready = ConeDetect();
+
+      case 6:
+        ready = IntakeRun();
+
+      case 7: 
+        ready = IntakeDead();
+
+      case 8:
+        ready = Spin();
+
+      case 9: 
+        ready = SecondFormation();
+
+      case 10:
+        ready = scorePrep();
+
+      case 11:
+        ready = sConeEl();
+
+      case 12:
+        ready = Score();  
+
+      case 13:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
@@ -484,7 +561,31 @@ if(navx.getPitch() < 5){
       case 4: 
         ready = Spin();
 
-      case 5:
+      case 5: 
+        ready = ConeDetect();
+
+      case 6:
+        ready = IntakeRun();
+
+      case 7: 
+        ready = IntakeDead();
+
+      case 8:
+        ready = Spin();
+
+      case 9: 
+        ready = ThirdEscape();
+
+      case 10:
+        ready = scorePrep();
+
+      case 11:
+        ready = sConeEl();
+
+      case 12:
+        ready = Score();  
+
+      case 13:
         break;
     }
     // if an autonomous step is complete, move on to the next one!
