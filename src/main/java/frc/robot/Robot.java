@@ -113,7 +113,6 @@ public class Robot extends TimedRobot {
   //Elevator mElevator = new Elevator();
   // Eva and Gabe will fill in the rest here!
 
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -140,9 +139,6 @@ public class Robot extends TimedRobot {
     // 5464 custom classes initial setup functions
     //mDrivetrain.Init();
     // Eva and Gabe will fill in the rest of subsystem inits here!
-
-
-
 
     // right_back.setInverted(false);
     right_front.setInverted(false);
@@ -240,7 +236,6 @@ public class Robot extends TimedRobot {
     // flag indicating we are lined up
     boolean ready = false;
 
-
     // do all the stuff we want during this step
     // at some point, once we satisfy conditions, we will do the following:
     // TODO: drive forward and check distance with Vision.
@@ -285,19 +280,15 @@ public class Robot extends TimedRobot {
         //set ready to true once conditions are met
 
         break;
-    
     }
-
     return ready;
   }
 
   public boolean Score(){
     // flag indicating cone has been dropped
     boolean ready = false;
-
     // release cone motors until encoders read a certain value = cone is dropped
     // set ready to true once conditions are met
-
     return ready;
   }
   
@@ -426,7 +417,6 @@ if(navx.getPitch() < 5){
   right_front.set(-1);
   right_back.set(-1);
 }
-
     return ready;
     //Focus on pitch when level value reads around 5
   }
@@ -481,25 +471,22 @@ if(navx.getPitch() < 5){
       case 13:
         break;
     }
-    // if an autonomous step is complete, move on to the next one!
     if(ready){
       ready = false;
       autoStep++;
     }
-
   }
 
   public void AutoSecondScore(){
     boolean ready = false;
     switch(autoStep){
       case 0:
-        // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
+
       case 1:
-        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
         ready = sConeEl();
+
       case 2:
-        // ready = ?
         ready = Score();
 
       case 3:
@@ -546,13 +533,12 @@ if(navx.getPitch() < 5){
     boolean ready = false;
     switch(autoStep){
       case 0:
-        // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
+
       case 1:
-        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
         ready = sConeEl();
+
       case 2:
-        // ready = ?
         ready = Score();
 
       case 3:
@@ -588,7 +574,6 @@ if(navx.getPitch() < 5){
       case 13:
         break;
     }
-    // if an autonomous step is complete, move on to the next one!
     if(ready){
       ready = false;
       autoStep++;
@@ -605,13 +590,12 @@ if(navx.getPitch() < 5){
     boolean ready = false;
     switch(autoStep){
       case 0:
-        // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
+
       case 1:
-        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
         ready = sConeEl();
+
       case 2:
-        // ready = ?
         ready = Score();
 
       case 3:
@@ -632,7 +616,6 @@ if(navx.getPitch() < 5){
       case 8:
         break;
     }
-    // if an autonomous step is complete, move on to the next one!
     if(ready){
       ready = false;
       autoStep++;
@@ -645,13 +628,12 @@ if(navx.getPitch() < 5){
     boolean ready = false;
     switch(autoStep){
       case 0:
-        // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
+
       case 1:
-        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
         ready = sConeEl();
+
       case 2:
-        // ready = ?
         ready = Score();
 
       case 3:
@@ -685,13 +667,12 @@ if(navx.getPitch() < 5){
     boolean ready = false;
     switch(autoStep){
       case 0:
-        // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
+
       case 1:
-        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
         ready = sConeEl();
+
       case 2:
-        // ready = ?
         ready = Score();
 
       case 3:
@@ -712,7 +693,6 @@ if(navx.getPitch() < 5){
       case 8:
         break;
     }
-    // if an autonomous step is complete, move on to the next one!
     if(ready){
       ready = false;
       autoStep++;
@@ -725,11 +705,11 @@ if(navx.getPitch() < 5){
     boolean ready = false;
     switch(autoStep){
       case 0:
-        // this will check the return value of scorePrep() continuously until it says it's ready
         ready = scorePrep();
+
       case 1:
-        // TODO: define more functions, like "sConeEl", just like we did for scorePrep()!
         ready = sConeEl();
+
       case 2:
         // ready = ?
         ready = Score();
@@ -740,7 +720,6 @@ if(navx.getPitch() < 5){
       case 8:
         break;
     }
-    // if an autonomous step is complete, move on to the next one!
     if(ready){
       ready = false;
       autoStep++;
@@ -767,7 +746,6 @@ if(navx.getPitch() < 5){
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
     System.out.println("Preset selected: " + score_preset_selected);
-    
   }
 
   /** This function is called periodically during autonomous. */
